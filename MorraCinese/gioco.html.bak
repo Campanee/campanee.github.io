@@ -1,0 +1,163 @@
+<html>
+<head>
+<link rel="stylesheet" href="stile.css">
+</head>
+<style>
+
+
+.punt {
+  padding: 20px;
+  text-align: left;
+  font-family: 'Pacifico', cursive;
+  color: white;
+  font-size: 40px;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 10px;
+  height: 134px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+</style>
+<script>
+//---------------------
+var tent = 0;
+var puntiC = 0, puntiG = 0, puntiP=0;
+const temp = ["carta", "sasso", "forbice"];
+
+function gioca(mossa){
+	if(tent<3){
+	
+   computer = Math.floor(Math.random() * 3);
+   console.log(temp[computer] + " " + temp[mossa]);
+   document.getElementById("punteggio-pareg").innerHTML = "Pareggi = " + puntiP;
+   document.getElementById("punteggio-giocatore").innerHTML = "Giocatore = " + puntiG;
+   document.getElementById("punteggio-comp").innerHTML = "Computer = " + puntiC;
+  
+  if (computer == mossa) {
+	puntiP++;
+	document.getElementById("punteggio-pareg").innerHTML = "Pareggi = " + puntiP;
+	document.getElementById("ggg").innerHTML = '<img src="' + temp[computer] + '.png" width="100px" height="100px"></img>';
+
+  } else if ((mossa == 1 && computer == 2) || (mossa == 2 && computer == 0) || (mossa == 0 && computer == 1)) {
+    puntiG++;
+	document.getElementById("punteggio-giocatore").innerHTML = "Giocatore = " + puntiG;
+	document.getElementById("ggg").innerHTML = '<img src="' + temp[computer] + '.png" width="100px" height="100px"></img>';
+  } else {
+    puntiC++;
+	document.getElementById("punteggio-comp").innerHTML = "Computer = " + puntiC;
+	document.getElementById("ggg").innerHTML = '<img src="' + temp[computer] + '.png" width="100px" height="100px"></img>';
+  }
+	console.log("Pareggi = "+ puntiP);
+	console.log("Punti computer = " + puntiC);
+	console.log("Punti giocatore = "+ puntiG);
+
+	tent++;
+	if(tent==3){
+		if(puntiG<puntiC){
+		   document.getElementById("vincitore").innerHTML = "Ha vinto il bot";
+		}else if(puntiG>puntiC){
+			   document.getElementById("vincitore").innerHTML = "Hai vinto";
+		} else {
+			   document.getElementById("vincitore").innerHTML = "Pareggio";
+		}
+	}
+}
+}
+function ricomincia(){
+ puntiG = 0;
+ puntiC = 0;
+ puntiP = 0;
+ tent = 0;
+ document.getElementById("punteggio-pareg").innerHTML = "Pareggi = " + puntiP;
+ document.getElementById("punteggio-giocatore").innerHTML = "Giocatore = " + puntiG;
+ document.getElementById("punteggio-comp").innerHTML = "Computer = " + puntiC;
+ 
+ document.getElementById("ggg").innerHTML = "";
+ 
+ 
+ document.getElementById("vincitore").innerHTML = "";
+}
+
+
+//---------------------
+</script>
+<body>
+<div class="topnav">
+  <a href="chisono.html"> Chi sono?</a>
+  <a href="https://www.instant-gaming.com/it/">Altri giochi...</a>
+</div>
+
+<div class="header">
+  <h1>MORRA CINESE</h1>
+  <p>Sfida il computer in <a href="https://it.wikipedia.org/wiki/Morra_cinese" style="color:red"> morra cinese!</a></p>
+</div>
+<a style="color:white"> <h2> Clicca sulle immagini per selezionare la tua mossa!  </h2>
+
+
+<div class="row">
+  <div class="column";>
+	<img id="pulsante" src="carta.png" width="100" height="100" onclick="gioca(0);" style="margin-right: 110px" >
+  </div>
+
+  <div class="column">
+	<img id="pulsante" src="sasso.png" width="100" height="100" onclick="gioca(1);"  style="margin-right: 110px" >
+  </div>
+  
+  <div class="column">
+	<img id="pulsante" src="forbice.png" width="100" height="100" onclick="gioca(2);"  style="margin-right: 110px" >
+  </div>
+
+
+
+</div>
+
+
+
+<div class="row">
+  <div class="column";>
+      <div class="punt">
+	<div id="punteggio-giocatore"> Giocatore = 0
+	</div>
+		<div id="punteggio-comp">Computer = 0
+		</div>
+			  <div id="punteggio-pareg">Pareggi = 0
+			  </div>
+	<div id="vincitore"></div>
+	</div>
+	
+	<div>
+	<a onclick="ricomincia(0);" target="_blank" title="Clicca per ricominciare la partita">
+	<input name="button" value="Ricomincia la partita" style="color:white; background-color: #e36f49; border-radius:12px; font-family:Georgia; font-size:24px; padding:8px; font-weight:bold;" type="submit">
+	</a>
+</div>
+  </div>
+  <div class="column">
+  <a style="color:white"> <h2> Il bot ha scelto: </h2>
+  
+	<div id="ggg">
+	</div>
+		<div id="ggg">
+		</div>
+			<div id="ggg">
+			</div>
+  </div>
+  
+  <div class="column">
+   		<img src="rob.gif" width="300" height="300">
+
+  </div>
+</div>
+
+
+
+</body>
+</html>

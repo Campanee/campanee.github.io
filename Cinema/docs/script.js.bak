@@ -1,0 +1,152 @@
+const vetdesc = ["Persi nel tempo","Harry Potter e i doni della morte 2", "Inside Out"];
+const vetdurata = ["60 min","120 min", "210 min"];
+
+const vetinfo = ["Me contro Te Il Film - Persi nel Tempo è un film di genere commedia del 2022, diretto da Gianluca Leuzzi, con Luigi Calagna e Sofia Scalia","La pellicola ha inizio dove si era conclusa la precedente: Voldemort ha profanato la tomba di Silente per impossessarsi della Bacchetta", "Il film segue la storia della giovanissima Riley, che viene sradicata dalla sua vita nel Midwest per seguire il padre, trasferitosi per lavoro a San Francisco"];
+
+for(var c = 0; c < vetdesc.length; c++){
+  document.getElementById("info" + c).innerHTML = vetinfo[c];
+  document.getElementById("desc" + c).innerHTML = vetdesc[c];
+  document.getElementById("durata" + c).innerHTML = vetdurata[c];
+}
+
+
+
+window.value=1;  
+function popup(indice) {
+var modal = document.getElementById("myModal");
+modal.style.display = "block";
+
+var span = document.getElementsByClassName("close")[0];
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+if(indice == 0){
+  window.value = document.getElementById("numbi").max = data["postisale"];
+  document.getElementById("sala").innerHTML = vetsala[0];
+  document.getElementById("postlib").innerHTML = "Biglietti rimasti: " + data["postisale"] +"/100";
+}else if(indice == 1){
+  window.value = document.getElementById("numbi").max = data["postisalee"];
+  document.getElementById("sala").innerHTML = vetsala[1];
+  document.getElementById("postlib").innerHTML = "Biglietti rimasti: " + data["postisalee"] +"/150";
+}else{
+  window.value = document.getElementById("numbi").max = data["postisaleee"];
+  document.getElementById("sala").innerHTML = vetsala[2];
+  document.getElementById("postlib").innerHTML = "Biglietti rimasti: " + data["postisaleee"] +"/200";
+  }
+console.log(window.value);
+}
+
+
+
+var close = document.getElementsByClassName("closebtn");
+var i;
+
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function(){
+    var div = this.parentElement;
+    div.style.opacity = "0";
+    setTimeout(function(){ div.style.display = "none"; }, 600);
+  }
+}
+
+const vetsala = ["Sala 1","Sala 2", "Sala 3"];
+
+var postisale = 100; // Posti per ogni sala1
+var totale = 100;
+
+var postisalee = 150; // Posti per ogni sala2
+var totalee = 150;
+
+var postisaleee = 200; // Posti per ogni sala3
+var totaleee = 200;
+
+var conto = 0;
+
+if(!("data" in localStorage)){
+    localStorage["data"] = JSON.stringify({"postisale": postisale, "postisalee": postisalee, "postisaleee": postisaleee, "conto": conto});
+}
+data = JSON.parse(localStorage["data"]);
+postisale = data["postisale"];
+postisalee = data["postisalee"];
+postisaleee = data["postisaleee"];
+conto = data["conto"];
+document.getElementById("saldo").innerHTML = conto+"€";
+
+	if(postisale == 0){
+		document.getElementById("tasto0").disabled = true;
+	}
+
+	if(postisalee == 0){
+		document.getElementById("tasto1").disabled = true;
+	}
+	 
+	if(postisaleee == 0){
+		document.getElementById("tasto2").disabled = true;
+	}
+function runCode() {
+
+  console.log(document.getElementById("sala").innerHTML);
+  var indice = parseInt(document.getElementById("sala").innerHTML.slice(-1)-1)
+  var numbiglie = document.getElementById('numbi').value;
+  var radios = document.getElementsByName("bigl");
+  var selected = Array.from(radios).find(radio => radio.checked);
+  
+var soldi;
+var selected = document.querySelector('input[type=radio][name=bigl]:checked');
+if((selected.value) == "Intero"){
+soldi = numbiglie * 5;
+}else{
+soldi = numbiglie * 3.5;
+} 
+console.log(window.value);
+var modal = document.getElementById("myModal");
+  if(numbiglie <= window.value && numbiglie > 0){
+    modal.style.display = "none";
+	document.getElementById("verde").removeAttribute("hidden");
+	xdialog.alert("Il biglietto selezionato è: "+  selected.value + "\nNumero biglietti: " + numbiglie +"\nPrezzo totale: "+ soldi+"€");
+	conto = conto + soldi;
+	if(indice == 0){
+		var postiliberi = data["postisale"] - numbiglie; //posti rimasti liberi
+		localStorage["data"] = JSON.stringify({"postisale": data["postisale"] - numbiglie, "postisalee":data["postisalee"], "postisaleee":data["postisaleee"], "conto": conto});
+		data = JSON.parse(localStorage["data"]);
+		console.log(postiliberi);
+		document.getElementById("postlib").innerHTML = "Biglietti rimasti: " + postiliberi+"/100";
+		var xx = document.getElementById("numbi").max = window.value;
+		if(postiliberi == 0){
+			document.getElementById("tasto0").disabled = true;
+		}
+	}else if(indice == 1){
+		var postiliberi = data["postisalee"] - numbiglie; //posti rimasti liberi
+		localStorage["data"] = JSON.stringify({"postisale": data["postisale"], "postisalee":data["postisalee"] - numbiglie, "postisaleee":data["postisaleee"], "conto": conto});
+		data = JSON.parse(localStorage["data"]);
+		console.log(postiliberi);
+		document.getElementById("postlib").innerHTML = "Biglietti rimasti: " + postiliberi+"/150";
+		var xx = document.getElementById("numbi").max = window.value;
+		if(postiliberi == 0){
+			document.getElementById("tasto1").disabled = true;
+		}
+	}else{
+		var postiliberi = data["postisaleee"] - numbiglie; //posti rimasti liberi
+		localStorage["data"] = JSON.stringify({"postisale": data["postisale"], "postisalee":data["postisalee"], "postisaleee":data["postisaleee"] - numbiglie, "conto": conto});
+		data = JSON.parse(localStorage["data"]);
+		console.log(postiliberi);
+		document.getElementById("postlib").innerHTML = "Biglietti rimasti: " + postiliberi+"/200";
+		var xx = document.getElementById("numbi").max = window.value;
+		if(postiliberi == 0){
+			document.getElementById("tasto2").disabled = true;
+		}
+	}
+	document.getElementById("saldo").innerHTML = conto+"€";
+  }else{
+    modal.style.display = "none";
+	document.getElementById("rosso").removeAttribute("hidden");
+ }
+}
+
